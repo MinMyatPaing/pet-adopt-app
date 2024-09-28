@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { Link } from "expo-router";
+import { Text, View, Pressable } from "react-native";
 
 export default function Index() {
   return (
@@ -7,7 +8,9 @@ export default function Index() {
         flex: 1,
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Link href="/login">
+        <Text>Go to Login Screen</Text>
+      </Link>
     </View>
   );
 }

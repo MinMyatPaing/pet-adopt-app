@@ -7,9 +7,11 @@ export default function RootLayout() {
     "outfit-medium": require("../assets/fonts/Outfit-Medium.ttf"),
     "outfit-bold": require("../assets/fonts/Outfit-Bold.ttf"),
   });
+
   return (
     <Stack>
       <Stack.Screen name="index" />
+      <Stack.Screen name="login/index" options={{ headerShown: false }} />
     </Stack>
   );
 }
