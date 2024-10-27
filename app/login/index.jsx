@@ -1,9 +1,61 @@
 import { View, Text, Image, Pressable } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import * as WebBrowser from "expo-web-browser";
+import { useOAuth, useUser } from "@clerk/clerk-expo";
+import * as Linking from "expo-linking";
 
 import Colors from "../../constants/Colors";
+import { router } from "expo-router";
+
+export const useWarmUpBrowser = () => {
+  React.useEffect(() => {
+    // Warm up the android browser to improve UX
+    // https://docs.expo.dev/guides/authentication/#improving-user-experience
+    void WebBrowser.warmUpAsync();
+    return () => {
+      void WebBrowser.coolDownAsync();
+    };
+  }, []);
+};
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+  useWarmUpBrowser();
+
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+
+  const { user, isLoaded } = useUser();
+
+  const onPress = React.useCallback(async () => {
+    try {
+      console.log("signing in222");
+
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow({
+          redirectUrl: Linking.createURL("/(tabs)/home", { scheme: "myapp" }),
+        });
+
+      if (createdSessionId) {
+        console.log(createdSessionId);
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  }, []);
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  useEffect(() => {
+    if (user) {
+      router.replace("/(tabs)/home");
+    }
+  }, [user]);
+
   return (
     <View
       style={{
@@ -46,6 +98,7 @@ export default function LoginScreen() {
         </Text>
 
         <Pressable
+          onPress={onPress}
           style={{
             padding: 14,
             marginTop: 20,
