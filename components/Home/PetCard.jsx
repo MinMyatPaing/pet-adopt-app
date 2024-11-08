@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
 import { useRouter } from "expo-router";
+import FavoritePet from "../FavoritePet";
 
 export default function PetCard({ pet }) {
   const router = useRouter();
@@ -13,6 +14,9 @@ export default function PetCard({ pet }) {
       }}
       style={styles.container}
     >
+      <View style={styles.favoriteIcon}>
+        <FavoritePet pet={pet} />
+      </View>
       <Image style={styles.image} source={{ uri: pet?.imageUrl }} />
       <Text style={styles.name}>{pet?.name}</Text>
       <View style={styles.textContainer}>
@@ -49,6 +53,12 @@ const styles = StyleSheet.create({
     fontFamily: "outfit",
     color: Colors.GRAY,
     fontSize: 14,
+  },
+  favoriteIcon: {
+    position: 'absolute',
+    zIndex: 100,
+    right: 20,
+    top: 20,
   },
   age: {
     fontFamily: "outfit",

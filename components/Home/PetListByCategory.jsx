@@ -9,7 +9,7 @@ export default function PetListByCategory({ petList }) {
       style={{ marginTop: 20 }}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
-      renderItem={({ item, index }) => <PetCard pet={item} />}
+      renderItem={({ item, index }) => <PetCard key={item.name} pet={item} />}
     />
   );
 }

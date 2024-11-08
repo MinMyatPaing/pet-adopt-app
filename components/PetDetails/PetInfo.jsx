@@ -17,7 +17,7 @@ export default function PetInfo({ pet }) {
           <Text style={styles.petName}>{pet?.name}</Text>
           <Text style={styles.address}>{pet?.address}</Text>
         </View>
-        <FavoritePet />
+        <FavoritePet pet={pet} />
       </View>
     </View>
   );
