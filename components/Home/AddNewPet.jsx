@@ -2,10 +2,15 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import Colors from '@/constants/Colors'
+import { useRouter } from 'expo-router'
 
 export default function AddNewPet() {
+
+  const router = useRouter();
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={() => {
+      router.push('/add-pet');
+    }}>
         <MaterialIcons name='pets' size={24} color={Colors.PRIMARY} />
         <Text style={styles.buttonText}>Add New Pet</Text>
     </TouchableOpacity>

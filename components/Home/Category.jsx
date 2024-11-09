@@ -12,7 +12,7 @@ import { db } from "@/config/firebase.config";
 import Colors from "@/constants/Colors";
 
 export default function Category({ fetchPetsByCategory }) {
-  const [selectedCategory, setSelectedCategory] = useState("dogs");
+  const [selectedCategory, setSelectedCategory] = useState("Dogs");
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
